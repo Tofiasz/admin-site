@@ -1,0 +1,28 @@
+.rectangle {
+    position: relative;
+        width: 100%;
+        padding: 20px;
+        padding-left: 20px;
+        left: 200px;
+        top: 60px;
+        right: 100px;
+        box-shadow: 0 7px 25px rgb(0 0 0 / 8%);
+        padding-right: 200px;
+        transition: 0.5s;
+        min-height: 88vh;
+        max-width: 84vw;
+        border-radius: 20px;
+}
+
+.rectangle.active {
+    left: 100px;
+    max-width: 91vw;
+}
+
+.role {
+    width: 50px;
+}
+
+.checkmark {
+    width: 50px;
+}

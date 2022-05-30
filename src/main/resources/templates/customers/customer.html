@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fragments/navigation.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/customers/customer.css}"/>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/navigation :: navigation"></div>
+    <div class="customerBox">
+        <div class="cardBox">
+            <div class="card">
+                <div>
+                    <div class="cardName">Login</div>
+                    <div class="title"><span th:text="${customer.getLogin}"></span></div>
+                </div>
+            </div>
+            <div class="card">
+                <div>
+                    <div class="cardName">First and Last Name</div>
+                    <div class="title">
+                        <span th:text="${customer.getFirstName}"></span>
+                        <span th:text="${customer.getLastName}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div>
+                    <div class="cardName">Email Address</div>
+                    <div class="title"><span th:text="${customer.getEmailAddress}"></span></div>
+                </div>
+            </div>
+            <div class="card">
+                <div>
+                    <div class="cardName">Address</div>
+                    <div class="title">
+                        <a>City: </a>
+                        <span th:text="${customer.getAddressDTO.getCity}"></span>
+                    </div>
+                    <div class="title">
+                        <a>Country: </a>
+                        <span th:text="${customer.getAddressDTO.getCountry}"></span>
+                    </div>
+                    <div class="title">
+                        <a>Street: </a>
+                        <span th:text="${customer.getAddressDTO.getStreet}"></span>
+                    </div>
+                    <div class="title">
+                        <a>House number: </a>
+                        <span th:text="${customer.getAddressDTO.getHouseNumber}"></span>
+                    </div>
+                    <div class="title" th:if="${customer.getAddressDTO.getApartmentNumber != null}">
+                        <a>Apartment number: </a>
+                        <span th:text="${customer.getAddressDTO.getApartmentNumber}"></span>
+                    </div>
+                    <div class="title">
+                        <a>Zip code: </a>
+                        <span th:text="${customer.getAddressDTO.getZipCode}"></span>
+                    </div>
+                    <div class="title">
+                        <a>Phone number: </a>
+                        <span th:text="${customer.getAddressDTO.getPhoneNumber}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div>
+                    <div class="cardName">Registration Date</div>
+                    <div class="title"><span th:text="${customer.getRegistrationDate}"></span></div>
+                </div>
+            </div>
+            <div class="card">
+                <div>
+                    <div class="cardName">Is Account Verified</div>
+                    <div class="title">
+                        <span th:classappend="${customer.getIsAccountVerified} ? 'verified' : 'not verified'"
+                              th:text="${customer.getIsAccountVerified} ? 'Verified' : 'Not Verified'"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="customerOrders">
+            <div class="ordersHeader">
+                <h2>Recent Customer Orders</h2>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Order id</td>
+                        <td>Order Date</td>
+                        <td>Payment</td>
+                        <td>Delivered</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span></span></td>
+                        <td><span></span></td>
+                        <td><span></span></td>
+                        <td><span></span></td>
+                        <td><span></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    let toggle = document.querySelector('.toggle');
+    let navigation = document.querySelector('.navigation');
+    let main = document.querySelector('.main');
+    let customerBox = document.querySelector('.customerBox');
+    let customerOrders = document.querySelector('.customerOrders');
+
+    toggle.onclick = function() {
+        navigation.classList.toggle('active');
+        main.classList.toggle('active');
+        customerBox.classList.toggle('active');
+        customerOrders.classList.toggle('active');
+    }
+    var oldId = null;
+    window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+    function myFunction(id) {
+    if (oldId == id) {
+        oldId = null;
+    }
+
+    document.getElementById("myDropdown " + id).classList.toggle("show");
+        if (oldId != null) {
+        document.getElementById("myDropdown " + oldId).classList.remove('show');
+    }
+    oldId = id;
+}
+</script>
+</body>
+</html>

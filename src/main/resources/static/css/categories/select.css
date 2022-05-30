@@ -1,0 +1,12 @@
+.customSelect select {
+      background-color: var(--white);
+      border-radius: 10px;
+      padding: 12px;
+      width: 250px;
+      border: none;
+      font-size: 20px;
+      box-shadow: 0 7px 25px rgb(0 0 0 / 8%);
+      -webkit-appearance: button;
+      appearance: button;
+      outline: none;
+}

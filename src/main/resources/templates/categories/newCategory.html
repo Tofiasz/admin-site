@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fragments/navigation.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/categories/newCategory.css}"/>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/navigation :: navigation"></div>
+    <div class="rectangle">
+        <div class="formHeader">
+            <h2>New Category</h2>
+        </div>
+        <form th:action="@{/categories/add-new-category}" th:object="${category}" method="POST">
+            <div class="form">
+                <span>Category Title</span>
+                <textarea id="category" type="text" th:field="*{title}" required></textarea>
+
+                <span>Meta Title</span>
+                <textarea class="biggerTextArea" type="text" th:field="*{metaTitle}" required></textarea>
+
+                <span>Content</span>
+                <textarea class="biggerTextArea" type="text" th:field="*{content}" required></textarea>
+
+                <button  type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    let toggle = document.querySelector('.toggle');
+    let navigation = document.querySelector('.navigation');
+    let main = document.querySelector('.main');
+    let rectangle = document.querySelector('.rectangle');
+
+    toggle.onclick = function() {
+        navigation.classList.toggle('active');
+        main.classList.toggle('active');
+        rectangle.classList.toggle('active');
+    }
+</script>
+</body>
+</html>

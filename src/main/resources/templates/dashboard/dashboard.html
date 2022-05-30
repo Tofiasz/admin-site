@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fragments/navigation.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dashboard/dashboard.css}"/>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/navigation :: navigation"></div>
+    <div class="cardBox">
+        <div class="card">
+            <div>
+                <div class="numbers"><span th:text="${numberOfUsers}"></span></div>
+                <div class="cardName">Users number</div>
+            </div>
+            <div class="iconBox">
+                <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/32/external-users-cv-resume-flatart-icons-outline-flatarticons.png">
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <div class="numbers"><span th:text="${numberOfProducts}"></span></div>
+                <div class="cardName">Products number</div>
+            </div>
+            <div class="iconBox">
+                <img src="https://img.icons8.com/external-linector-lineal-linector/32/external-products-online-shopping-linector-lineal-linector.png">
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <div class="numbers"><span th:text="${numberOfOrdersInCurrentMonth}"></span></div>
+                <div class="cardName">Orders this month</div>
+            </div>
+            <div class="iconBox">
+                <img src="https://img.icons8.com/external-itim2101-lineal-itim2101/32/external-order-online-shopping-itim2101-lineal-itim2101.png">
+            </div>
+        </div>
+        <div class="card">
+            <div>
+                <div class="numbers">$<span th:text="${earningsThisYear}"></span></div>
+                <div class="cardName">Earnings this year</div>
+            </div>
+            <div class="iconBox">
+                <img src="https://img.icons8.com/material-outlined/32/us-dollar--v1.png">
+            </div>
+        </div>
+    </div>
+    <div class="details">
+        <div class="recentCustomers">
+            <div class="cardHeader">
+                <h2>Recent Customers</h2>
+                <a th:href="@{/customers/all-customers}" class="btn">View All</a>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Email address</td>
+                        <td>Registration date</td>
+                        <td>Account Status</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="customer : ${tenRecentRegisteredCustomers}">
+                        <td><span th:text="${customer.getFirstName}"></span></td>
+                        <td><span th:text="${customer.getEmailAddress}"></span></td>
+                        <td><span th:text="${customer.getRegistrationDate}"></span></td>
+                        <td><span th:classappend="${customer.getIsAccountVerified} ? 'verified' : 'not verified'"
+                                  th:text="${customer.getIsAccountVerified} ? 'Verified' : 'Not Verified'"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="topBuyers">
+            <div class="cardHeader">
+                <h2>Top Buyers</h2>
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Email address</td>
+                    <td>Number of orders</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="buyer : ${topBuyersList}">
+                    <td><span th:text="${buyer.getFirstName}"></span></td>
+                    <td><span th:text="${buyer.getEmailAddress}"></span></td>
+                    <td><span th:text="${buyer.getOrders}"></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="ordersChart">
+            <div id="myChart"></div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript">
+        let toggle = document.querySelector('.toggle');
+              let navigation = document.querySelector('.navigation');
+              let main = document.querySelector('.main');
+              let details = document.querySelector('.details');
+              let cardBox = document.querySelector('.cardBox');
+
+              toggle.onclick = function() {
+              navigation.classList.toggle('active');
+                main.classList.toggle('active');
+                details.classList.toggle('active');
+                cardBox.classList.toggle('active');
+              }
+    </script>
+<script type="text/javascript" th:inline="javascript">
+google.charts.load('current',{packages:['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Set Data
+var data = google.visualization.arrayToDataTable([[${last12Months}]]);
+// Set Options
+var options = {
+  title: 'Earnings per month',
+  hAxis: {title: 'Month'},
+  vAxis: {title: 'Earnings'},
+  legend: 'none'
+};
+// Draw
+var chart = new google.visualization.LineChart(document.getElementById('myChart'));
+chart.draw(data, options);
+}
+</script>
+</body>
+</html>

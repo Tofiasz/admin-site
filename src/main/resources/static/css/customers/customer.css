@@ -1,0 +1,109 @@
+.customerBox {
+    position: relative;
+    left: 200px;
+    top: 60px;
+    display: grid;
+    grid-template-columns: repeat(2, 0fr);
+    transition: 0.5s;
+}
+
+.customerBox.active {
+    left: 100px;
+}
+
+.cardBox {
+    position: relative;
+    padding: 20px;
+    padding-left: 20px;
+    display: grid;
+    grid-gap: 10px;
+    transition: 0.5s;
+    margin-right: 40px;
+}
+
+.cardBox .card {
+    position: relative;
+    background: var(--white);
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    box-shadow: 0 7px 25px rgb(0 0 0 / 8%);
+    width: 210px;
+}
+
+.cardBox .card .title a {
+    color: var(--blue);
+}
+
+.cardBox .card:hover .title,
+.cardBox .card:hover .cardName,
+.cardBox .card:hover .title a {
+    color: var(--white);
+}
+
+.cardBox .card .title {
+    position: relative;
+    font-weight: 500;
+}
+
+.cardBox .card .cardName {
+    color: var(--blue);
+    font-size: 1.1em;
+    margin-top: 5px;
+}
+
+.cardBox .card:hover{
+    background: var(--blue);
+}
+
+.verified {
+    padding: 2px 4px;
+    background: #8de02c;
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.not.verified {
+    padding: 2px 4px;
+    background: #f00;
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.customerOrders {
+    position: relative;
+    margin-top: 20px;
+    padding: 20px;
+    padding-left: 20px;
+    display: grid;
+    grid-gap: 10px;
+    transition: 0.5s;
+    margin-right: 40px;
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    min-width: 870px;
+    max-height: 544px;
+}
+
+.customerOrders.active {
+    min-width: 970px;
+}
+
+.ordersHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-height: 49px;
+}
+
+.ordersHeader h2 {
+    font-weight: 600;
+    color: var(--blue);
+}

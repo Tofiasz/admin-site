@@ -1,0 +1,29 @@
+.rectangle {
+    position: relative;
+    left: 200px;
+    top: 60px;
+    max-width: 83vw;
+    min-height: 90vh;
+    background: var(--white);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    transition: 0.5s;
+    padding: 20px;
+}
+
+.rectangle.active {
+    left: 100px;
+    max-width: 90vw;
+}
+
+.rectangle .formHeader h2 {
+    color: var(--blue);
+}
+
+.rectangle .formBox {
+    position: relative;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px;
+}

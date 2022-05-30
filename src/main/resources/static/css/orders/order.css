@@ -1,0 +1,185 @@
+.details {
+    position: relative;
+    width: 80%;
+    padding: 20px;
+    display: grid;
+    grid-gap: 10px;
+    left: 200px;
+    top: 65px;
+    transition: 0.5s;
+    text-align: left;
+}
+
+.order {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 0fr);
+    grid-gap: 30px;
+}
+
+.rectangle {
+    position: relative;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    display: block;
+    justify-content: space-between;
+    cursor: pointer;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    width: 240px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.header h2 {
+    font-weight: 600;
+    color: var(--blue);
+}
+
+.btn {
+    position: relative;
+    padding: 5px 10px;
+    background: #8de02c;
+    text-decoration: none;
+    color: var(--white);
+    border-radius: 6px;
+}
+
+.productsData table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.rectangle .productsData table tr {
+    color: var(--black1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.rectangle .productsData table tr td{
+    padding: 7px;
+}
+
+.rectangle .productsData table thead tr {
+    font-weight: bold;
+}
+
+.productsData {
+    background: var(--white);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    padding: 20px;
+    transition: 0.5s;
+}
+
+.rectangle .productsData table tr:last-child {
+    border-bottom: none;
+}
+
+.rectangle .productsData table tr td:last-child {
+    text-align: end;
+}
+
+.rectangle img {
+    width: 50px;
+    height: 50px;
+    transition: 0.5s
+}
+
+.dropbtn {
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--white);
+    background-image: radial-gradient(var(--blue) 2px, transparent 2px), radial-gradient(var(--blue) 2px, transparent 2px), radial-gradient(var(--blue) 2px, transparent 2px);
+    background-position: center -7px, center center, center 7px;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: var(--grey);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--white);
+  min-width: 100px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  text-align: center;
+  right: 0;
+  border-radius: 10px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {
+    background-color: #ddd;
+    border-radius: 10px;
+    color: var(--blue);
+}
+
+.show {display: block;}
+
+.order .rectangle {
+    position: relative;
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    justify-content: space-between;
+    box-shadow: 0 7px 25px rgb(0 0 0 / 8%);
+    width: 25vw;
+}
+
+.orderData {
+    grid-row-start: 1;
+    grid-column-start: 1;
+}
+
+.customerData {
+    grid-row-start: 1;
+    grid-column-start: 2;
+}
+
+.addressData {
+    grid-row-start: 1;
+    grid-column-start: 3;
+}
+
+.shipperData {
+    grid-row-start: 3;
+    grid-column-start: 1;
+}
+
+.transactionData {
+    grid-row-start: 2;
+    grid-column-start: 1;
+}
+
+.productsData {
+    grid-row-start: 2;
+    grid-row-end: span 2;
+    min-width: 52vw;
+    grid-column-start: 2;
+    grid-column-end: span 2;
+}

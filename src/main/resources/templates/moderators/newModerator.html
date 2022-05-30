@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fragments/navigation.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/moderators/newModerator.css}"/>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/navigation :: navigation"></div>
+    <div class="rectangle">
+        <div class="newModerator">
+            <form th:action="@{/moderators/add-new-moderator}"
+                    th:object="${registrationDTO}"
+                  method="POST">
+                <div class="form">
+                    <label>Username</label>
+                    <input type="text" th:field="*{userName}" placeholder="Enter Username" required>
+
+                    <label>Password</label>
+                    <input type="password" th:field="*{password}" placeholder="Enter Password" required>
+
+                    <label>Roles</label>
+                    <div th:each="role : ${allRolesDTO}">
+                        <label class="role">
+                            <input type="checkbox" name="role"
+                                   th:value="${role.getId}"/>
+                            <span class="checkmark" th:text="${role.getRoleNameDTO}"></span>
+                        </label>
+                    </div>
+
+                    <button  type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    let toggle = document.querySelector('.toggle');
+    let navigation = document.querySelector('.navigation');
+    let main = document.querySelector('.main');
+    let rectangle = document.querySelector('.rectangle');
+
+toggle.onclick = function() {
+navigation.classList.toggle('active');
+main.classList.toggle('active');
+rectangle.classList.toggle('active');
+}
+</script>
+</body>
+</html>

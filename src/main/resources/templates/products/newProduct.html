@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fragments/navigation.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/products/newProduct.css}"/>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/navigation :: navigation"></div>
+    <div class="rectangle">
+        <div class="formHeader">
+            <h2>New Category</h2>
+        </div>
+        <form th:action="@{/products/add-new-product}"
+              enctype="multipart/form-data"
+              method="POST">
+            <div class="formBox">
+                <div class="form">
+                    <span>Product title</span>
+                    <textarea id="category" type="text" th:field="*{productDTO.title}" required></textarea>
+                </div>
+
+                <div class="form">
+                    <span>Meta Title</span>
+                    <textarea class="biggerTextArea" type="text" th:field="*{productDTO.metaTitle}" required></textarea>
+                </div>
+
+                <div class="form">
+                    <span>Content</span>
+                    <textarea class="biggerTextArea" type="text" th:field="*{productDTO.content}" required></textarea>
+                </div>
+
+                <div class="form">
+                    <span>SKU</span>
+                    <textarea class="biggerTextArea" type="text" th:field="*{productDTO.stockKeepingUnit}" required></textarea>
+                </div>
+
+                <div class="form">
+                    <span>EAN Code</span>
+                    <textarea class="biggerTextArea" type="text" th:field="*{productDTO.codeEAN}" required></textarea>
+                </div>
+
+                <div class="form">
+                    <span>Price</span>
+                    <textarea class="biggerTextArea" type="text" th:field="*{productDTO.price}" required></textarea>
+                </div>
+
+
+                <div class="form">
+                    <span>Tax</span>
+                    <textarea class="biggerTextArea" type="text" th:field="*{productDTO.tax}" required></textarea>
+                </div>
+
+                <div class="form">
+                    <span>Product Available</span>
+                    <select class="form-control" th:field="*{productDTO.productAvailable}">
+                        <option th:value="1">Available</option>
+                        <option th:value="0">Not Available</option>
+                    </select>
+                </div>
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                <div class="form">
+                    <span>Product Category</span>
+                    <div class="customSelect">
+                        <span>
+                            <select name="categorySelect" id="categorySelect" th:field="*{productDTO.productCategoryDTO.id}">
+                                <option th:each="productCategory : ${productCategoriesList}"
+                                        th:text="${productCategory.getTitle}"
+                                        th:value="${productCategory.getId()}">
+                                </option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form">
+                    <span>Product Type</span>
+                    <div class="customSelect">
+                        <span>
+                            <select class="type" name="typeSelect" id="typeSelect" th:field="*{productDTO.productTypeDTO.id}">
+                                <option th:each="productType : ${productTypesList}"
+                                        th:data-value="${productType.productCategoryDTO.getId()}"
+                                        th:text="${productType.getTitle}"
+                                        th:value="${productType.getId()}">
+                                </option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="form">
+                    <label>Images: </label>
+                    <input type="file" name="multipartFileList" value="multipartFileList"
+                    th:object="${multipartFileList}" multiple="multiple">
+                </div>
+
+                <button  type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    let toggle = document.querySelector('.toggle');
+    let navigation = document.querySelector('.navigation');
+    let main = document.querySelector('.main');
+    let rectangle = document.querySelector('.rectangle');
+
+    toggle.onclick = function() {
+        navigation.classList.toggle('active');
+        main.classList.toggle('active');
+        rectangle.classList.toggle('active');
+    }
+
+    $(document).ready(function() {
+  var selectors = ['categorySelect', 'typeSelect']
+
+  $('select').on('change', function() {
+    var index = selectors.indexOf(this.id)
+    var value = this.value
+
+    if (index < selectors.length - 1) {
+      var next = $('#' + selectors[index + 1])
+
+      $(next).find('option').show()
+      if (value != "") {
+        $(next).find('option[data-value!=' + value + ']').hide()
+      }
+
+    $('.type option[data-value =' + value + ']').attr('selected','selected');
+    }
+  })
+});
+</script>
+</body>
+</html>

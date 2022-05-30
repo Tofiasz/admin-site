@@ -1,0 +1,46 @@
+.rectangle {
+    position: relative;
+    padding: 20px;
+    left: 180px;
+    top: 60px;
+    transition: 0.5s;
+    display: inline-block;
+}
+
+.rectangle.active {
+    left: 80px;
+}
+
+.rectangle ul {
+    position: relative;
+}
+
+.rectangle ul li {
+    list-style: none;
+    background-color: var(--white);
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    margin: 10px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    width: 400px;
+}
+
+.rectangle ul li:hover {
+    background: var(--blue);
+}
+
+.rectangle ul li a {
+    position: relative;
+    width: 100%;
+    text-decoration: none;
+    margin: 0px;
+    padding: 20px;
+    display: block;
+    height: 100%;
+    color: var(--blue);
+    font-size: 16px;
+}
+
+.rectangle ul li a:hover {
+    color: var(--white);
+}

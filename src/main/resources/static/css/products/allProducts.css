@@ -1,0 +1,174 @@
+.rectangle {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    padding-left: 20px;
+    left: 200px;
+    top: 60px;
+    right: 100px;
+    padding-right: 200px;
+    transition: 0.5s;
+}
+
+.rectangle.active {
+    left: 100px;
+}
+
+.productsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.productsHeader h2 {
+    font-weight: 600;
+    color: var(--blue);
+}
+
+.btn {
+    position: relative;
+    padding: 5px 10px;
+    background: #8de02c;
+    text-decoration: none;
+    color: var(--white);
+    border-radius: 6px;
+}
+
+.products table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.rectangle .products table tr {
+    color: var(--black1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.rectangle .products table tr td{
+    padding: 7px;
+}
+
+.rectangle .products table thead tr {
+    font-weight: bold;
+}
+
+.products {
+    background: var(--white);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    padding: 20px;
+    width: 80vw;
+    transition: 0.5s;
+    min-height: 78vh;
+}
+
+.products.active {
+    width: 87vw;
+}
+
+.rectangle .products table tr:last-child {
+    border-bottom: none;
+}
+
+.rectangle .products table tr td:last-child {
+    text-align: end;
+}
+
+.rectangle img {
+    width: 50px;
+    height: 50px;
+    transition: 0.5s
+}
+
+.rectangle img:hover {
+    transform: scale(5);
+}
+
+.dropbtn {
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--white);
+    background-image: radial-gradient(var(--blue) 2px, transparent 2px), radial-gradient(var(--blue) 2px, transparent 2px), radial-gradient(var(--blue) 2px, transparent 2px);
+    background-position: center -7px, center center, center 7px;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: var(--grey);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--white);
+  min-width: 100px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  text-align: center;
+  right: 0;
+  border-radius: 10px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {
+    background-color: #ddd;
+    border-radius: 10px;
+    color: var(--blue);
+}
+
+.show {display: block;}
+
+.available {
+    padding: 2px 4px;
+    background: #8de02c;
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.not.available {
+    padding: 2px 4px;
+    background: #f00;
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.buttons {
+    position: inherit;
+    top: 30px;
+}
+
+.buttons .pagination {
+    display: inline-block;
+    border-radius: 5px;
+    background: var(--blue);
+}
+
+.buttons .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: var(--white);
+}

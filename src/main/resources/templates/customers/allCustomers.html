@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fragments/navigation.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/customers/allCustomers.css}"/>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/navigation :: navigation"></div>
+    <div class="details">
+        <div class="customers">
+            <div class="cardHeader">
+                <h2>All Customers</h2>
+                <div class="searchCustomer">
+                    <form th:action="@{/customers/search-for}" method="GET">
+                        <label>
+                            <input th:name="search-for" type="text" placeholder="Search">
+                        </label>
+                    </form>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Login</th>
+                        <th>Name</th>
+                        <th>Last Name</th>
+                        <th>Email address</th>
+                        <th>Country</th>
+                        <th>City</th>
+                        <th>Registration date</th>
+                        <th>Account Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="customer : ${customerList}">
+                        <td><span th:text="${customer.getLogin}"></span></td>
+                        <td><span th:text="${customer.getFirstName}"></span></td>
+                        <td><span th:text="${customer.getLastName}"></span></td>
+                        <td><span th:text="${customer.getEmailAddress}"></span></td>
+                        <td><span th:text="${customer.getAddressDTO.getCountry}"></span></td>
+                        <td><span th:text="${customer.getAddressDTO.getCity}"></span></td>
+                        <td><span th:text="${customer.getRegistrationDate}"></span></td>
+                        <td><span th:classappend="${customer.getIsAccountVerified} ? 'verified' : 'not verified'" th:text="${customer.getIsAccountVerified} ? 'Verified' : 'Not Verified'"></span></td>
+                        <td>
+                            <div class="dropdown">
+                                <button th:onclick="myFunction([[${customer.getId}]])" class="dropbtn"></button>
+                                <div th:id="'myDropdown ' + ${customer.getId}" class="dropdown-content">
+                                    <a th:href="@{'customer?id=' + ${customer.getId}}">Check</a>
+                                    <a>Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="buttons">
+        <div th:if="${pagesNumber > 0}" class="pagination"
+             th:each="pageNumber : ${#numbers.sequence(1, pagesNumber, 1)}">
+            <a th:href="@{/customers/all-customers(page-number=${pageNumber - 1})}"
+               th:text=${pageNumber}
+               th:class="${pageNumber==1} ? active"
+            ></a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    let toggle = document.querySelector('.toggle');
+    let navigation = document.querySelector('.navigation');
+    let main = document.querySelector('.main');
+    let details = document.querySelector('.details');
+
+    toggle.onclick = function() {
+        navigation.classList.toggle('active');
+        main.classList.toggle('active');
+        details.classList.toggle('active');
+    }
+    var oldId = null;
+    window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+    function myFunction(id) {
+    if (oldId == id) {
+        oldId = null;
+    }
+
+    document.getElementById("myDropdown " + id).classList.toggle("show");
+        if (oldId != null) {
+        document.getElementById("myDropdown " + oldId).classList.remove('show');
+    }
+    oldId = id;
+}
+</script>
+</body>
+</html>

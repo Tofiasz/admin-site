@@ -1,0 +1,196 @@
+.details {
+    position: relative;
+    width: 80%;
+    padding: 20px;
+    display: grid;
+    grid-gap: 30px;
+    left: 200px;
+    top: 65px;
+    transition: 0.5s;
+    text-align: center;
+}
+
+.details.active {
+    left: 100px;
+    width: 90%;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-height: 49px;
+}
+
+.cardHeader h2 {
+    font-weight: 600;
+    color: var(--blue);
+}
+
+.details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    min-width: 80vw;
+    min-height: 70vh;
+}
+
+table td {
+    width: 10vw;
+}
+
+table td:nth-child(8) {
+    width: 6vw;
+}
+
+table td:nth-child(9) {
+    width: 3vw;
+}
+
+tr {
+    vertical-align:top;
+}
+
+th {
+  height: 50px;
+  width: 70px;
+}
+
+.details table thead td {
+    font-weight: 600;
+}
+
+.details .customers table tr {
+    color: var(--black1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.details .customers table tr:last-child {
+    border-bottom: none;
+}
+
+.details .customers table tr td {
+    padding: 3px;
+}
+
+.customers {
+    position: relative;
+    display: grid;
+    padding: 20px;
+    background: var(--white);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+
+.verified {
+    padding: 2px 4px;
+    background: #8de02c;
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.not.verified {
+    padding: 2px 4px;
+    background: #f00;
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.buttons {
+    position: relative;
+    top: 60px;
+    left: 50%;
+}
+
+.buttons .pagination {
+    display: inline-block;
+    border-radius: 5px;
+    background: var(--blue);
+}
+
+.buttons .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: var(--white);
+}
+
+.searchCustomer {
+    position: relative;
+    width: 60%;
+    margin: 0 10px;
+}
+
+.searchCustomer label{
+    position: relative;
+    width: 100%;
+}
+
+.searchCustomer label input {
+    float: right;
+    width: 50%;
+    height: 30px;
+    border-radius: 30px;
+    padding: 5px 20px;
+    padding-left: 35px;
+    font-size: 15px;
+    outline: none;
+    border: 1px solid var(--black2);
+}
+
+.dropbtn {
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--white);
+    background-image: radial-gradient(var(--blue) 2px, transparent 2px), radial-gradient(var(--blue) 2px, transparent 2px), radial-gradient(var(--blue) 2px, transparent 2px);
+    background-position: center -7px, center center, center 7px;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: var(--grey);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  bottom: 3px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--white);
+  min-width: 100px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  text-align: center;
+  right: 0;
+  border-radius: 10px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {
+    background-color: #ddd;
+    border-radius: 10px;
+    color: var(--blue);
+}
+
+.show {display: block;}

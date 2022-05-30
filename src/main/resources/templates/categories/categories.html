@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fragments/navigation.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/categories/categories.css}"/>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/navigation :: navigation"></div>
+    <div class="rectangle">
+        <ul>
+            <li>
+                <a th:href="@{categories/all-categories}">
+                    <span class="button">Categories</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{categories/all-product-categories}">
+                    <span class="button">Product Categories</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{categories/all-product-types}">
+                    <span class="button">Product Types</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    let toggle = document.querySelector('.toggle');
+    let navigation = document.querySelector('.navigation');
+    let main = document.querySelector('.main');
+    let rectangle = document.querySelector('.rectangle');
+
+    toggle.onclick = function() {
+        navigation.classList.toggle('active');
+        main.classList.toggle('active');
+        rectangle.classList.toggle('active');
+    }
+</script>
+</body>
+</html>

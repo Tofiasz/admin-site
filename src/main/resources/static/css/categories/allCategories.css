@@ -1,0 +1,11 @@
+table td {
+    width: 28vw;
+}
+
+table td:nth-child(4) {
+    width: 3vw;
+}
+
+table tr {
+    height: 6vh;
+}

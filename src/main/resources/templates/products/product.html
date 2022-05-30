@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fragments/navigation.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/products/product.css}"/>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/navigation :: navigation"></div>
+    <div class="rectangle">
+        <div class="fieldsBox">
+            <div class="field" id="productField">
+                <div class="square">
+                    <div class="fieldName">
+                        <span>Product Data</span>
+                        <a id="productBtn">Edit</a>
+                    </div>
+                    <div class="data">
+                        <a>Title: </a>
+                        <span th:text="${productDTO.getTitle}"></span>
+                    </div>
+                    <div class="data">
+                        <a>SKU: </a>
+                        <span th:text="${productDTO.getStockKeepingUnit}"></span>
+                    </div>
+                    <div class="data">
+                        <a>EAN: </a>
+                        <span th:text="${productDTO.getCodeEAN}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <div>
+                    <div class="fieldName">
+                        <span>Product Data</span>
+                        <a id="priceBtn">Edit</a>
+                    </div>
+                    <div class="data">
+                        <a>Price without taxes: </a>
+                        <span th:text="${productDTO.getPrice}"></span>
+                    </div>
+                    <div class="data">
+                        <a>Discount: </a>
+                        <span th:text="${productDTO.getDiscount}"></span>
+                    </div>
+                    <div class="data">
+                        <a>TAX: </a>
+                        <span th:text="${productDTO.getTax}"></span>
+                    </div>
+                    <div class="data">
+                        <a>Price with tax: </a>
+                        <span id="priceWithTax"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <div>
+                    <div class="fieldName">
+                        <span>Product Inventory</span>
+                        <a id="inventoryBtn">Edit</a>
+                    </div>
+                    <div class="data">
+                        <a>Quantity</a>
+                        <span th:text="${productDTO.getQuantity}"></span>
+                    </div>
+                    <div class="data">
+                        <a>Available: </a>
+                        <span th:text="${productDTO.getProductAvailable}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <div>
+                    <div class="fieldName">
+                        <span>Categories</span>
+                        <a id="categoriesBtn">Edit</a>
+                    </div>
+                    <div class="data">
+                        <a>Category</a>
+                        <span th:text="${productDTO.getProductCategoryDTO.getCategoryDTO.getTitle}"></span>
+                    </div>
+                    <div class="data">
+                        <a>Product Category: </a>
+                        <span th:text="${productDTO.getProductCategoryDTO.getTitle}"></span>
+                    </div>
+                    <div class="data">
+                        <a>Product Types: </a>
+                        <span th:text="${productDTO.getProductCategoryDTO.getTitle}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="field imagesBox">
+                <div>
+                    <div class="fieldName">
+                        <span>Images</span>
+                        <a id="imagesBtn">Edit</a>
+                    </div>
+                    <div class="imageSlider">
+                        <div class="mainImage">
+                            <img th:id="mainImage0"
+                                 th:if="${productDTO.getProductImageDTOList.size != 0}"
+                                 th:src="@{'data:image/jpeg;base64, '+${productDTO.getProductImageDTOList[0].getEncodedImage()}}"
+                            />
+                        </div>
+                        <div class="mainImage" th:each="productImage, iterStat : ${productDTO.productImageDTOList}">
+                            <img th:id="'mainImage' + ${iterStat.index + 1}"
+                                 th:if="${productDTO.getProductImageDTOList.size != 0}"
+                                 th:src="@{'data:image/jpeg;base64, '+${productImage.getEncodedImage()}}"
+                                 style="visibility:hidden;display:none"
+                            />
+                        </div>
+                        <div class="images">
+                            <div class="image" th:each="productImage, iterStat : ${productDTO.productImageDTOList}">
+                                <img th:src="@{'data:image/jpeg;base64, '+${productImage.getEncodedImage}}"
+                                     th:onclick="changeImage([[${iterStat.index + 1}]], [[${productDTO.productImageDTOList.size}]])"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field sales">
+                <div>
+                    <div class="fieldName">
+                        <span>Product Sales Information</span>
+                    </div>
+
+                </div>
+            </div>
+            <div id="productModal" class="modal">
+                <form id="myForm" th:action="@{update-product}" th:object="${newProductDTO}" method="POST">
+                    <div class="modal-content">
+                        <button type="button" class="close"></button>
+                        <input type="hidden" id="id" th:field="*{id}">
+                        <input type="hidden" id="createdAt" th:field="*{createdAt}">
+                        <div id="productData">
+                            <span>Title</span>
+                            <textarea type="text" id="title" th:field="*{title}" required></textarea>
+
+                            <span>Meta Title</span>
+                            <textarea class="biggerTextArea" type="text" id="metaTitle" th:field="*{metaTitle}" required></textarea>
+
+                            <span>Content</span>
+                            <textarea class="biggerTextArea" type="text" id="content" th:field="*{content}" required></textarea>
+
+                            <span>SKU</span>
+                            <textarea id="sku" th:field="*{stockKeepingUnit}" required></textarea>
+
+                            <span>EAN</span>
+                            <textarea id="ean" th:field="*{codeEAN}" required></textarea>
+                        </div>
+                        <div id="priceData">
+                            <span>Price</span>
+                            <input type="number" id="price" th:field="*{price}" required>
+
+                            <span>Discount</span>
+                            <input type="number" id="discount" th:field="*{discount}">
+
+                            <span>Tax</span>
+                            <input type="number" id="tax" th:field="*{tax}">
+                        </div>
+                        <div id="inventoryData">
+                            <span>Quantity</span>
+                            <input type="number" id="quantity" th:field="*{quantity}" required>
+
+                            <span>Product Inventory</span>
+                            <select id="productAvailable" th:field="*{productAvailable}">
+                                <option th:value=true>Available</option>
+                                <option th:value=false>Not Available</option>
+                            </select>
+                        </div>
+                        <div id="categoriesData">
+                            <span>Product Category</span>
+                            <div class="customSelect">
+                                <span>
+                                    <select class="type" name="productCategorySelect" id="productCategorySelect" th:field="*{productCategoryDTO.id}">
+                                        <option th:each="productCategory : ${productCategoriesList}"
+                                                th:data-value="${productCategory.getId()}"
+                                                th:text="${productCategory.getTitle}"
+                                                th:value="${productCategory.getId()}">
+                                        </option>
+                                    </select>
+                                </span>
+                            </div>
+                            <span>Product Type</span>
+                            <div class="customSelect">
+                                <span>
+                                    <select class="type" name="productTypeSelect" id="productTypeSelect" th:field="*{productTypeDTO.id}">
+                                        <option th:each="productType : ${productTypesList}"
+                                                th:data-value="${productType.getId()}"
+                                                th:text="${productType.getTitle}"
+                                                th:value="${productType.getId()}">
+                                        </option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div id="imagesData">
+                            <div class="image" th:each="productImage : ${productDTO.productImageDTOList}">
+                                <img th:src="@{'data:image/jpeg;base64, '+${productImage.getEncodedImage}}"/>
+                                <a th:if="${isCurrentUserIsAdmin == true}"
+                                   th:href="@{'delete-product-image-by-id?image-id=' + ${productImage.getId} + '&product-id=' + ${productDTO.getId}}"
+                                   th:data-confirm-delete="|Are you sure you want to delete this image - ${productImage.getName}?|"
+                                   onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">Delete</a>
+                            </div>
+                        </div>
+                        <button id="submitBtn" type="submit" value="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function changeImage(id, listSize) {
+        for (i = 0; i <= listSize; i++) {
+    image = document.getElementById("mainImage" + i);
+    image.style.visibility = "hidden";
+    image.style.display = "none";
+  }
+  mainImage = document.getElementById("mainImage" + id);
+  mainImage.style.visibility = "visible";
+  mainImage.style.display = "block";
+    }
+</script>
+<script type="text/javascript">
+    let toggle = document.querySelector('.toggle');
+    let navigation = document.querySelector('.navigation');
+    let main = document.querySelector('.main');
+    let rectangle = document.querySelector('.rectangle');
+
+    toggle.onclick = function() {
+        navigation.classList.toggle('active');
+        main.classList.toggle('active');
+        rectangle.classList.toggle('active');
+    }
+</script>
+<script>
+var modal = document.getElementById("productModal");
+var productData = document.getElementById('productData');
+var priceData = document.getElementById('priceData');
+var categoriesData = document.getElementById('categoriesData');
+var inventoryData = document.getElementById('inventoryData');
+var span = document.getElementsByClassName("close")[0];
+var myForm = document.getElementById('myForm');
+
+submitBtn.onclick = function() {
+    document.myForm.submit();
+}
+
+productBtn.onclick = function() {
+  modal.style.display = "block";
+  productData.style.display = "block";
+  priceData.style.display = "none";
+  inventoryData.style.display = "none";
+  categoriesData.style.display = "none";
+  imagesData.style.display = "none";
+}
+
+priceBtn.onclick = function() {
+  modal.style.display = "block";
+  priceData.style.display = "block";
+  productData.style.display = "none";
+  inventoryData.style.display = "none";
+  categoriesData.style.display = "none";
+  imagesData.style.display = "none";
+}
+
+inventoryBtn.onclick = function() {
+  modal.style.display = "block";
+  inventoryData.style.display = "block";
+  productData.style.display = "none";
+  priceData.style.display = "none";
+  categoriesData.style.display = "none";
+  imagesData.style.display = "none";
+}
+
+categoriesBtn.onclick = function() {
+  modal.style.display = "block";
+  categoriesData.style.display = "block";
+  productData.style.display = "none";
+  priceData.style.display = "none";
+  inventoryData.style.display = "none";
+  imagesData.style.display = "none";
+}
+
+imagesBtn.onclick = function() {
+  modal.style.display = "block";
+  imagesData.style.display = "block";
+  categoriesData.style.display = "none";
+  productData.style.display = "none";
+  priceData.style.display = "none";
+  inventoryData.style.display = "none";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+<script>
+    window.onload = function () {
+        var priceWithoutTax = [[${productDTO.getPrice}]];
+        var tax = [[${productDTO.getTax}]];
+        var priceWithTax = priceWithoutTax * (1 + tax / 100);
+        document.getElementById("priceWithTax").textContent = priceWithTax;
+
+        document.getElementById("title").defaultValue = "[[${productDTO.title}]]";
+        document.getElementById("metaTitle").defaultValue = "[[${productDTO.metaTitle}]]";
+        document.getElementById("content").defaultValue = "[[${productDTO.content}]]";
+        document.getElementById("id").defaultValue = "[[${productDTO.id}]]";
+        document.getElementById("sku").defaultValue = "[[${productDTO.stockKeepingUnit}]]";
+        document.getElementById("ean").defaultValue = "[[${productDTO.codeEAN}]]";
+        document.getElementById("price").defaultValue = "[[${productDTO.price}]]";
+        document.getElementById("discount").defaultValue = "[[${productDTO.discount}]]";
+        document.getElementById("tax").defaultValue = "[[${productDTO.tax}]]";
+        document.getElementById("quantity").defaultValue = "[[${productDTO.quantity}]]";
+        document.getElementById("createdAt").defaultValue = "[[${productDTO.createdAt}]]";
+        document.getElementById("productAvailable").defaultValue = "[[${productDTO.productAvailable}]]";
+
+        var productCategoryValue = [[${productDTO.getProductCategoryDTO.getId}]];
+        var idElement = document.getElementById('productCategorySelect');
+        idElement.value = productCategoryValue;
+
+        var productTypeValue = [[${productDTO.getProductTypeDTO.getId}]];
+        var idElement = document.getElementById('productTypeSelect');
+        idElement.value = productTypeValue;
+
+        var productAvailable = [[${productDTO.getProductAvailable}]];
+        var idElement = document.getElementById('productAvailable');
+        idElement.value = productAvailable;
+    }
+</script>
+</body>
+</html>

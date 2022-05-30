@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home/home.css}"/>
+</head>
+<body>
+    <div class="container">
+        <div class="rectangle">
+            <div class="header">
+                <h2>Admin Site</h2>
+            </div>
+            <form th:action="@{/auth/sign-in}" th:object="${sign}" method="post">
+                <div class="form">
+                    <label>Username</label>
+                    <input type="text" th:field="*{login}" placeholder="Enter Username" required>
+
+                    <label>Password</label>
+                    <input type="password" th:field="*{password}" placeholder="Enter Password" required>
+
+                    <button  type="submit">Login</button>
+                </div>
+            </form>
+            <div class="responses">
+                <p id="denied" th:if="${accessDeniedError}" class="error">You have no access</p>
+                <p id="logout" th:if="${logoutResponse != null}">Logout was successful</p>
+                <p id="loginError" th:if="${loginError == true}">Invalid username or password</p>
+                <p id="leftAttempts" th:if="${leftAttempts != null}">
+                    <a>You got</a>
+                    <a th:text="${leftAttempts}"></a>
+                    <a>left attempts to log in</a>
+                </p>
+                <p id="blocked" th:if="${accountBlocked}">Your account is blocked for <a th:text="${lockedDate}"></a> seconds</p>
+                <p id="sessionExpired" th:if="${sessionExpired}">Your session expired</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fragments/navigation.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/categories/categoriesTable.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/categories/allProductCategories.css}"/>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/navigation :: navigation"></div>
+    <div class="rectangle">
+        <div class="categories">
+            <div class="cardHeader">
+                <h2>All Categories</h2>
+                <div class="searchCategories">
+                    <form th:action="@{/categories/search-for-product-category}" method="GET">
+                        <label>
+                            <input th:name="search-for" type="text" placeholder="Search">
+                        </label>
+                    </form>
+                </div>
+                <a th:href="@{/categories/add-new-product-category}" class="btn">Add new</a>
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Meta Title</th>
+                    <th>Content</th>
+                    <th>Category Name</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="productCategory : ${productCategoriesList}">
+                    <td><span th:text="${productCategory.getTitle}"></span></td>
+                    <td><span th:text="${productCategory.getMetaTitle}"></span></td>
+                    <td><span th:text="${productCategory.getContent}"></span></td>
+                    <td><span th:text="${productCategory.getCategoryDTO.getTitle}"></span></td>
+                    <td>
+                        <div class="dropdown">
+                            <button th:onclick="myFunction([[${productCategory.getId}]])" class="dropbtn"></button>
+                            <div th:id="'myDropdown ' + ${productCategory.getId}" class="dropdown-content">
+                                <a th:href="@{'update-product-category-by-id?id=' + ${productCategory.getId}}">Edit</a>
+                                <a th:if="${isCurrentUserIsAdmin == true}" th:href="@{'delete-product-category-by-id?id=' + ${productCategory.getId}}"
+                                   th:data-confirm-delete="|Are you sure you want to delete this product category - ${productCategory.getTitle}?|"
+                                   onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">Delete</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="buttons">
+            <div th:switch="${searching}" th:if="${pagesNumber > 0}" class="pagination"
+                 th:each="pageNumber : ${#numbers.sequence(1, pagesNumber, 1)}">
+                <a th:case="false"
+                        th:href="@{/categories/all-product-categories(page-number=${pageNumber - 1})}"
+                   th:text=${pageNumber}
+                   th:class="${pageNumber==1} ? active"
+                ></a>
+                <a th:case="true"
+                   th:href="@{/categories/search-for-product-category(search-for=${searchFor}, page-number=${pageNumber - 1}, )}"
+                   th:text=${pageNumber}
+                   th:class="${pageNumber==1} ? active"
+                ></a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    let toggle = document.querySelector('.toggle');
+    let navigation = document.querySelector('.navigation');
+    let main = document.querySelector('.main');
+    let rectangle = document.querySelector('.rectangle');
+    let categories = document.querySelector('.categories');
+
+    toggle.onclick = function() {
+        navigation.classList.toggle('active');
+        main.classList.toggle('active');
+        rectangle.classList.toggle('active');
+        categories.classList.toggle('active');
+    }
+    var oldId = null;
+    window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+    function myFunction(id) {
+    if (oldId == id) {
+        oldId = null;
+    }
+
+    document.getElementById("myDropdown " + id).classList.toggle("show");
+        if (oldId != null) {
+        document.getElementById("myDropdown " + oldId).classList.remove('show');
+    }
+    oldId = id;
+}
+</script>
+</body>
+</html>

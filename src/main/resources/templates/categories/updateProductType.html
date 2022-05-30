@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fragments/navigation.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/categories/newCategory.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/categories/select.css}"/>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/navigation :: navigation"></div>
+    <div class="rectangle">
+        <div class="formHeader">
+            <h2>Update Product Type</h2>
+        </div>
+        <form th:action="@{update-product-type}" th:object="${newProductTypeDTO}" method="POST">
+            <div class="form">
+                <input type="hidden" id="id" th:field="*{id}">
+                <span>Title</span>
+                <textarea type="text" id="title" th:field="*{title}" required></textarea>
+
+                <span>Meta Title</span>
+                <textarea class="biggerTextArea" type="text" id="metaTitle" th:field="*{metaTitle}" required></textarea>
+
+                <span>Content</span>
+                <textarea class="biggerTextArea" type="text" id="content" th:field="*{content}" required></textarea>
+
+                <span>Product Category</span>
+                <div class="customSelect">
+          <span>
+            <select id="productCategoryDTO.id" name="productCategoryDTO.id">
+              <option th:each="productCategory : ${productCategoriesList}"
+                      th:value="${productCategory.getId()}"
+                      th:text="${productCategory.getTitle()}"
+                      th:selected="${productCategory.getTitle() == productTypeDTO.productCategoryDTO.getTitle()}"
+              >
+              </option>
+            </select>
+          </span>
+                </div>
+                <button  type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    let toggle = document.querySelector('.toggle');
+    let navigation = document.querySelector('.navigation');
+    let main = document.querySelector('.main');
+
+    toggle.onclick = function() {
+        navigation.classList.toggle('active');
+        main.classList.toggle('active');
+    }
+
+    window.onload = function () {
+        document.getElementById("title").defaultValue = "[[${productTypeDTO.title}]]";
+        document.getElementById("metaTitle").defaultValue = "[[${productTypeDTO.metaTitle}]]";
+        document.getElementById("content").defaultValue = "[[${productTypeDTO.content}]]";
+        document.getElementById("id").defaultValue = "[[${productTypeDTO.id}]]";
+    }
+</script>
+</body>
+</html>

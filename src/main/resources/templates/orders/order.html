@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fragments/navigation.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/orders/order.css}"/>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/navigation :: navigation"></div>
+    <div class="details">
+        <div class="order">
+            <div class="rectangle orderData">
+                <div class="header">
+                    <h2>Order</h2>
+                </div>
+                <div class="data">
+                    <a>Id: </a>
+                    <span th:text="${orderDTO.getId}"></span>
+                </div>
+                <div class="data">
+                    <a>Order Number: </a>
+                    <span th:text="${orderDTO.getOrderNumber}"></span>
+                </div>
+                <div class="data">
+                    <a>Order Date: </a>
+                    <span th:text="${orderDTO.getOrderDate}"></span>
+                </div>
+                <div class="data">
+                    <a>Ship Date: </a>
+                    <span th:text="${orderDTO.getShipDate}"></span>
+                </div>
+            </div>
+            <div class="rectangle customerData">
+                <div class="header">
+                    <h2>Customer</h2>
+                </div>
+                <div class="data">
+                    <a>Login: </a>
+                    <span th:text="${orderDTO.getCustomerDTO.getLogin}"></span>
+                </div>
+                <div class="data">
+                    <a>Email: </a>
+                    <span th:text="${orderDTO.getCustomerDTO.getEmailAddress}"></span>
+                </div>
+                <div class="data"><a>Name and Last Name: </a>
+                    <span th:text="${orderDTO.getCustomerDTO.getFirstName}"></span>
+                    <span th:text="${orderDTO.getCustomerDTO.getLastName}"></span>
+                </div>
+            </div>
+            <div class="rectangle addressData">
+                <div class="header">
+                    <h2>Customer Address</h2>
+                </div>
+                <div class="data">
+                    <a>Country:</a>
+                    <span th:text="${orderDTO.getCustomerDTO.getAddressDTO.getCountry}"></span>
+                </div>
+                <div class="data">
+                    <a>City:</a>
+                    <span th:text="${orderDTO.getCustomerDTO.getAddressDTO.getCity}"></span>
+                </div>
+                <div>
+                    <a>Street:</a>
+                    <span th:text="${orderDTO.getCustomerDTO.getAddressDTO.getStreet}"></span>
+                </div>
+                <div class="data"><a>House Number:</a>
+                    <span th:text="${orderDTO.getCustomerDTO.getAddressDTO.getHouseNumber}"></span>
+                </div>
+                <div class="data">
+                    <a>Zip Code:</a>
+                    <span th:text="${orderDTO.getCustomerDTO.getAddressDTO.getZipCode}"></span>
+                </div>
+                <div class="data">
+                    <a>Phone Number:</a>
+                    <span th:text="${orderDTO.getCustomerDTO.getAddressDTO.getPhoneNumber}"></span>
+                </div>
+            </div>
+            <div class="rectangle productsData">
+                <div class="header">
+                    <h2>Products</h2>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <td>Image</td>
+                        <td>Id</td>
+                        <td>Name</td>
+                        <td>EAN Code</td>
+                        <td>SKU</td>
+                        <td>Price</td>
+                        <td>Tax</td>
+                        <td>Total Price</td>
+                        <td>Action</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product : ${orderDTO.getProductDTOList}">
+                        <td><img th:if="${product.getProductImageDTOList.size != 0}"
+                                 th:src="@{'data:image/jpeg;base64, '+${product.getProductImageDTOList[0].getEncodedImage()}}"/></td>
+                        <td><span th:text="${product.getId}"></span></td>
+                        <td><span th:text="${product.getTitle}"></span></td>
+                        <td><span th:text="${product.getCodeEAN}"></span></td>
+                        <td><span th:text="${product.getStockKeepingUnit}"></span></td>
+                        <td><span th:text="${product.getPrice}"></span></td>
+                        <td><span th:text="${product.getTax}"></span></td>
+                        <td><span th:id="'totalPrice ' + ${product.getId}"></span></td>
+                        <td>
+                            <div class="dropdown">
+                                <button th:onclick="myFunction([[${product.getId}]])"
+                                        class="dropbtn"></button>
+                                <div th:id="'myDropdown ' + ${product.getId}" class="dropdown-content">
+                                    <a th:href="@{'/products/get-product-by-id?id=' + ${product.getId}}">Get Product</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="rectangle shipperData">
+                <div class="header">
+                    <h2>Shipper</h2>
+                </div>
+                <div class="data">
+                    <a>Shipper ID:</a>
+                    <span th:text="${orderDTO.getShipperDTO.getId}"></span>
+                </div>
+                <div class="data">
+                    <a>Name:</a>
+                    <span th:text="${orderDTO.getShipperDTO.getCompanyName}"></span>
+                </div>
+            </div>
+            <div class="rectangle transactionData">
+                <div class="header">
+                    <h2>Transaction</h2>
+                </div>
+                <div class="data">
+                    <a>Status:</a>
+                    <span th:text="${orderDTO.getTransactStatus}"></span>
+                </div>
+                <div class="data">
+                    <a>Payment Status:</a>
+                    <span th:classappend="${orderDTO.getPaid} ? 'paid' : 'not paid'"
+                          th:text="${orderDTO.getPaid} ? 'Paid' : 'Not Paid'"></span>
+                </div>
+                <div class="data">
+                    <a>Payment Data:</a>
+                    <span th:text="${orderDTO.getPaymentDate}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    let toggle = document.querySelector('.toggle');
+    let navigation = document.querySelector('.navigation');
+    let main = document.querySelector('.main');
+
+    toggle.onclick = function() {
+        navigation.classList.toggle('active');
+        main.classList.toggle('active');
+    }
+</script>
+<script type="text/javascript">
+    var oldId = null;
+    window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+    function myFunction(id) {
+    if (oldId == id) {
+        oldId = null;
+    }
+
+    document.getElementById("myDropdown " + id).classList.toggle("show");
+        if (oldId != null) {
+        document.getElementById("myDropdown " + oldId).classList.remove('show');
+}
+    oldId = id;
+}
+</script>
+<script th:inline="javascript" type="text/javascript">
+/*<![CDATA[*/
+    /*[# th:each="product : ${orderDTO.getProductDTOList}"]*/
+        var id = [[${product.getId}]];
+        var price = [[${product.getPrice}]];
+        var tax = [[${product.getTax}]];
+        var priceWithTax = price * (1 + tax / 100);
+        priceWithTax.toFixed(2);
+        document.getElementById("totalPrice " + id).textContent = priceWithTax;
+    /*[/]*/
+/*]]>*/
+</script>
+</body>
+</html>
