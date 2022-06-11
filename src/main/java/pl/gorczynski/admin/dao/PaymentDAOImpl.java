@@ -11,38 +11,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class PaymentDAOImpl implements DAO<Payment> {
+public class PaymentDAOImpl{
 
     private final PaymentRepository paymentRepository;
 
     @Autowired
-    public PaymentDAOImpl(PaymentRepository paymentRepository) {
+    public PaymentDAOImpl(final PaymentRepository paymentRepository) {
         this.paymentRepository = paymentRepository;
     }
 
-    @Override
-    public Optional<Payment> get(long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<Payment> getAll() {
-        return null;
-    }
-
-    @Override
     public void save(final Payment payment) {
         paymentRepository.save(payment);
-    }
-
-    @Override
-    public void update(Payment payment, String[] params) {
-
-    }
-
-    @Override
-    public void delete(Payment payment) {
-
     }
 
     public void savePaymentList() {

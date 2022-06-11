@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class ShipperDAOImpl implements DAO<Shipper> {
+public class ShipperDAOImpl {
 
     private final ShipperService shipperService;
 
@@ -19,29 +19,8 @@ public class ShipperDAOImpl implements DAO<Shipper> {
         this.shipperService = shipperService;
     }
 
-    @Override
-    public Optional<Shipper> get(long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<Shipper> getAll() {
-        return null;
-    }
-
-    @Override
     public void save(final Shipper shipper) {
         shipperService.save(shipper);
-    }
-
-    @Override
-    public void update(Shipper shipper, String[] params) {
-
-    }
-
-    @Override
-    public void delete(Shipper shipper) {
-
     }
 
     public void saveShippersList() {

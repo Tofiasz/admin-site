@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
-public class OrderDAOImpl implements DAO<Order> {
+public class OrderDAOImpl {
     private final CustomerService customerService;
     private final ProductService productService;
     private final OrderRepository orderRepository;
@@ -39,29 +39,8 @@ public class OrderDAOImpl implements DAO<Order> {
         this.shipperService = shipperService;
     }
 
-    @Override
-    public Optional<Order> get(long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<Order> getAll() {
-        return new ArrayList<>();
-    }
-
-    @Override
     public void save(final Order order) {
         orderRepository.save(order);
-    }
-
-    @Override
-    public void update(Order order, String[] params) {
-
-    }
-
-    @Override
-    public void delete(Order order) {
-
     }
 
     public void createAndSaveRandomOrder() {
